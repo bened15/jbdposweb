@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="JBDPOS" transaction-type="RESOURCE_LOCAL">
+		<non-jta-data-source>java:/comp/env/jdbc/RESTORACIODB</non-jta-data-source>
+		<class>com.jbd.model.AdmCustomer</class>
+		<class>com.jbd.model.AdmReservation</class>
+		<class>com.jbd.model.CtgDiscount</class>
+		<class>com.jbd.model.CtgDiscountMenu</class>
+		<class>com.jbd.model.CtgMeasureUnit</class>
+		<class>com.jbd.model.CtgMenuLanguage</class>
+		<class>com.jbd.model.CtgMenuSubType</class>
+		<class>com.jbd.model.CtgMenuType</class>
+		<class>com.jbd.model.CtgPaymentMethod</class>
+		<class>com.jbd.model.CtgProductLog</class>
+		<class>com.jbd.model.CtgProductType</class>
+		<class>com.jbd.model.CtgSupplier</class>
+		<class>com.jbd.model.CtgTip</class>
+		<class>com.jbd.model.CtgTransactionType</class>
+		<class>com.jbd.model.InvInventoryAvailability</class>
+		<class>com.jbd.model.InvProductTransactionLog</class>
+		<class>com.jbd.model.InvInventoryWaste</class>
+		<class>com.jbd.model.InvProductItem</class>
+		<class>com.jbd.model.RestArea</class>
+		<class>com.jbd.model.RestBill</class>
+		<class>com.jbd.model.RestBillDetail</class>
+		<class>com.jbd.model.RestBillPayment</class>
+		<class>com.jbd.model.RestInformation</class>
+		<class>com.jbd.model.RestKitchen</class>
+		<class>com.jbd.model.RestMenuItem</class>
+		<class>com.jbd.model.RestMenuItemComment</class>
+		<class>com.jbd.model.RestMenuItemProduct</class>
+		<class>com.jbd.model.RestMenuItemType</class>
+		<class>com.jbd.model.RestOrder</class>
+		<class>com.jbd.model.RestOrderLog</class>
+		<class>com.jbd.model.RestProduct</class>
+		<class>com.jbd.model.RestOrderDetailLess</class>
+		<class>com.jbd.model.RestShift</class>
+		<class>com.jbd.model.RestShiftDetail</class>
+		<class>com.jbd.model.RestShiftLog</class>
+		<class>com.jbd.model.RestTable</class>
+		<class>com.jbd.model.RestTableAccount</class>
+		<class>com.jbd.model.SysRole</class>
+		<class>com.jbd.model.SysUser</class>
+		<class>com.jbd.model.SysUserRol</class>
+		<class>com.jbd.model.SysUserRolLog</class>
+
+
+
+		<properties>
+			<!-- Configuración de la BD -->
+
+
+			<!-- <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" 
+				/> -->
+
+			<!-- ********************************************************************************* -->
+			<!-- ********************************************************************************* -->
+
+			<!-- Debido a que se inyectan en ejecucion a este archivo, -->
+			<!-- los parametros de usuario y pass, no se colocan en este archivo -->
+
+
+
+
+
+			<!-- <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/restoracio" 
+				/> -->
+			<!-- <property name="javax.persistence.jdbc.user" value="root" /> -->
+			<!-- <property name="javax.persistence.jdbc.password" value="" /> -->
+
+			<!-- ********************************************************************************* -->
+			<!-- ********************************************************************************* -->
+
+
+
+
+			<!-- dialecto SQL -->
+			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect" 
+				/> -->
+			<property name="hibernate.connection.autocommit" value="false" />
+
+
+
+			<!-- <property name="hibernate.show_sql" value="true" /> -->
+
+			<!-- Modo de actualización del esquema de base de datos -->
+			<property name="hibernate.hbm2ddl.auto" value="" />
+
+			<property name="hibernate.format_sql" value="true" />
+
+		</properties>
+
+
+
+
+	</persistence-unit>
+
+</persistence>

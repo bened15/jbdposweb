@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- <p:growl id="messages" showDetail="true" /> -->
+
+<p:panel id="titPanelId" styleClass="titleStyle">
+
+	<div class="rcorners2" style="float: left; margin-right: 3px;">
+		<h:commandLink styleClass="titlePanel"
+			style="text-decoration: none;font-size:1.3em;" value="JBD-POS"
+			immediate="true" action="#{homeController.goHomePage}">
+			<h:graphicImage name="img/home.png" style="width:35px; height:35px;"></h:graphicImage>
+
+		</h:commandLink>
+	</div>
+	<div class="rcorners1" style="float: right; margin-right: 3px;">
+		<h:outputText value="Bienvenido:   " style="font-size:0.8em;"
+			styleClass="titlePanelInfo"></h:outputText>
+		<br></br>
+		<h:outputText value="#{userController.userName}"
+			styleClass="titlePanelInfo" style="font-size:0.9em;font-weight:bold;"></h:outputText>
+
+	</div>
+
+
+</p:panel>
+<p:panel id="titPanelInfoId" styleClass="titleStyleInfo"
+	style="font-size:0.8em;">
+	<h:panelGrid columns="4"
+		rendered="#{homeController.optionSelected eq 'NUEVA ORDEN' or homeController.optionSelected eq 'EDITAR ORDEN' or homeController.optionSelected eq 'ORDEN PARA LLEVAR' }">
+
+		<h:outputText value="MESA: " styleClass="titlePanelInfo"></h:outputText>
+		<h:outputText value="#{orderController.rta.restTable.tableName}"
+			styleClass="titlePanelInfo"
+			style="font-size:1.2em;font-weight:bold;margin-right:60px;"></h:outputText>
+
+		<h:outputText value="Comensales: " styleClass="titlePanelInfo"></h:outputText>
+		<h:outputText value="#{orderController.rta.guestNum}"
+			styleClass="titlePanelInfo"
+			style="font-size:1.2em;font-weight:bold;margin-right:60px;"></h:outputText>
+
+		<h:outputText value="Creada Por: " styleClass="titlePanelInfo"></h:outputText>
+		<h:outputText value="#{orderController.rta.createdBy}"
+			styleClass="titlePanelInfo"
+			style="font-size:1.2em;font-weight:bold;margin-right:60px;"></h:outputText>
+
+		<h:outputText value="Tiempo Trans.: " styleClass="titlePanelInfo"></h:outputText>
+		<h:outputText value="#{orderController.timeOpen}"
+			styleClass="titlePanelInfo"
+			style="font-size:1.2em;font-weight:bold;margin-right:60px;"></h:outputText>
+
+	</h:panelGrid>
+
+
+
+	<h:panelGrid columns="4"
+		rendered="#{homeController.optionSelected eq 'EFECTUAR PAGO'}">
+
+		<h:outputText value="MESA: " styleClass="titlePanelInfo"></h:outputText>
+		<h:outputText value="#{paymentController.rta.restTable.tableName}"
+			styleClass="titlePanelInfo"
+			style="font-size:1.2em;font-weight:bold;margin-right:60px;"></h:outputText>
+		<h:outputText value="Comensales: " styleClass="titlePanelInfo"></h:outputText>
+		<h:outputText value="#{paymentController.rta.guestNum}"
+			styleClass="titlePanelInfo"
+			style="font-size:1.2em;font-weight:bold;margin-right:60px;"></h:outputText>
+		<h:outputText value="Creada Por: " styleClass="titlePanelInfo"></h:outputText>
+		<h:outputText value="#{paymentController.rta.createdBy}"
+			styleClass="titlePanelInfo"
+			style="font-size:1.2em;font-weight:bold;margin-right:60px;"></h:outputText>
+		<h:outputText value="Tiempo Trans.: " styleClass="titlePanelInfo"></h:outputText>
+		<h:outputText value="#{paymentController.timeOpen} "
+			styleClass="titlePanelInfo"
+			style="font-size:1.2em;font-weight:bold;margin-right:60px;"></h:outputText>
+
+	</h:panelGrid>
+
+
+
+	<h:panelGrid columns="4"
+		rendered="#{homeController.optionSelected eq 'ADMINISTRAR CUENTAS'}">
+
+		<h:outputText value="MESA: " styleClass="titlePanelInfo"></h:outputText>
+		<h:outputText value="#{splitController.rta.restTable.tableName}"
+			styleClass="titlePanelInfo"
+			style="font-size:1.2em;font-weight:bold;margin-right:60px;"></h:outputText>
+		<h:outputText value="Comensales: " styleClass="titlePanelInfo"></h:outputText>
+		<h:outputText value="#{splitController.rta.guestNum}"
+			styleClass="titlePanelInfo"
+			style="font-size:1.2em;font-weight:bold;margin-right:60px;"></h:outputText>
+		<h:outputText value="Creada Por: " styleClass="titlePanelInfo"></h:outputText>
+		<h:outputText value="#{splitController.rta.createdBy}"
+			styleClass="titlePanelInfo"
+			style="font-size:1.2em;font-weight:bold;margin-right:60px;"></h:outputText>
+		<h:outputText value="Tiempo Trans.: " styleClass="titlePanelInfo"></h:outputText>
+		<h:outputText value="#{splitController.timeOpen} "
+			styleClass="titlePanelInfo"
+			style="font-size:1.2em;font-weight:bold;margin-right:60px;"></h:outputText>
+
+	</h:panelGrid>
+</p:panel>
+
+</html>

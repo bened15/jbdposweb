@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<!-- <h:body> -->
+
+<ui:composition template="./layouts.xhtml">
+
+	<ui:define name="content">
+		<p:growl id="messages" showDetail="true" />
+
+		<p:dataGrid var="area" value="#{orderController.areas}" columns="4"
+			rendered="#{orderController.mostrarAreas}" layout="grid" rows="24"
+			paginator="true" id="areas"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+			<f:facet name="header">
+            	Seleccione un Area
+        	</f:facet>
+
+			<p:panel style="text-align:center;background:#e3d5a9;"
+				rendered="#{area.type eq 'LLEVAR'}">
+				<p:commandButton
+					style="width:100px;height:70px;background:#eaca67;color:white;"
+					value="#{area.areaName}"
+					actionListener="#{orderController.loadPanesForTables(area)}"
+					update=":formP"></p:commandButton>
+			</p:panel>
+
+		</p:dataGrid>
+
+		<p:dataGrid var="table" value="#{orderController.tables}" columns="4"
+			rendered="#{orderController.mostrarTables}" layout="grid" rows="24"
+			paginator="true" id="tablesId" widgetVar="tablesId"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+			<f:facet name="header">
+            	Seleccione una Mesa
+        	</f:facet>
+
+			<p:panel style="text-align:center;background:#dae3a9;">
+				<p:commandButton
+					disabled="#{table.status eq 'OCUPADO'? 'true':'false'}"
+					style="width:80px;height:80px;background:#a0b240;color:white;"
+					actionListener="#{orderController.setTableSelected(table)}"
+					value="#{table.tableName}" oncomplete="PF('billsDialog').show()"
+					update=":formH">
+
+				</p:commandButton>
+			</p:panel>
+
+		</p:dataGrid>
+
+
+
+		<p:dataGrid var="menuType" value="#{orderController.menuType}"
+			columns="6" rendered="#{orderController.mostrarMenuType}"
+			layout="grid" rows="30" paginator="true" id="menuTypeId"
+			widgetVar="menuTypeId"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Search}">
+
+			<f:facet name="header">
+            	Seleccione un Menu
+        	</f:facet>
+			<f:facet name="{Search}">
+				<p:commandButton
+					style="width:100px;height:50px;background:#99CC99;color:white;text-align:center;"
+					value="Buscar!" update=":formP"
+					oncomplete="PF('elementNameDialog').show()">
+
+				</p:commandButton>
+			</f:facet>
+
+			<p:panel style="text-align:center;">
+				<p:commandButton
+					style="width:100px;height:60px;background:#5babf4;color:white;text-align:center;"
+					actionListener="#{orderController.setMenuTypeSelected(menuType)}"
+					oncomplete="PF('newOrderDialog').show()"
+					value="#{menuType.menuTypeName}" update=":formItems">
+
+				</p:commandButton>
+			</p:panel>
+
+		</p:dataGrid>
+
+
+	</ui:define>
+
+
+
+
+
+</ui:composition>
+<!-- </h:body> -->
+</html>

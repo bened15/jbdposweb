@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<!-- <h:body> -->
+
+<ui:composition template="./layouts.xhtml">
+
+
+
+
+
+	<ui:define name="content">
+		<p:dataGrid var="bi" value="#{paymentController.bills}" columns="4"
+			layout="grid" rows="6" paginator="true" id="billsNumId"
+			widgetVar="billsNumW"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+			<p:panel id="cuentas" header="#{bi.billName}"
+				style="font-size:0.8em;text-align: center;">
+
+				<p:dataTable value="#{paymentController.billsToShow(bi)}" var="d"
+					type="ordered" paginator="true" rows="10">
+
+					<p:column headerText="Item Name">
+						<h:outputText value="#{d.restOrder.restMenuItem.menuItemName}"></h:outputText>
+					</p:column>
+					<p:column width="40" headerText="Precio($)">
+						<b> <h:outputText
+								value="#{''.concat('$').concat(d.restOrder.restMenuItem.menuItemPrice)}"></h:outputText>
+						</b>
+					</p:column>
+				</p:dataTable>
+				<p:panelGrid columns="2">
+					<h:outputText value="Subtotal:" style="font-weight:bold;"></h:outputText>
+					<h:outputText value="#{'$'.concat(bi.billSubtotal)}"
+						style="font-size:1.4em;"></h:outputText>
+					<h:outputText value="Propina:" style="font-weight:bold;"></h:outputText>
+					<h:outputText value="#{'$'.concat(bi.billTip)}"
+						style="font-size:1.4em;"></h:outputText>
+					<h:outputText value="Total:" style="font-weight:bold;"></h:outputText>
+					<h:outputText value="#{'$'.concat(bi.billTotal)}"
+						style="font-size:1.4em;"></h:outputText>
+
+
+				</p:panelGrid>
+				<p:commandLink oncomplete="PF('ctgPaymentsDialog').show()"
+					update=":formH"
+					actionListener="#{paymentController.setRestBillSelected(bi)}">
+					<h:graphicImage name="img/paymentIcon.png"
+						style="width:80px; height:80px; padding:10px;"></h:graphicImage>
+
+				</p:commandLink>
+				<p:commandLink oncomplete="PF('preCuentaDialog').show()"
+					update=":formH :formPreCuenta"
+					actionListener="#{paymentController.createPreCuenta(bi)}">
+					<h:graphicImage name="img/pre-cuenta.png"
+						style="width:80px; height:80px; padding:10px;"></h:graphicImage>
+
+				</p:commandLink>
+
+
+
+			</p:panel>
+		</p:dataGrid>
+		<p:panelGrid columns="2" style="margin-top:20px;font-size:2em;">
+			<h:outputText value="Subtotal:" style="font-weight:bold;"></h:outputText>
+			<h:outputText value="#{'$'.concat(paymentController.subTotal)}"></h:outputText>
+			<h:outputText value="Propina:" style="font-weight:bold;"></h:outputText>
+			<h:outputText value="#{'$'.concat(paymentController.tip)}"></h:outputText>
+			<h:outputText value="Total:" style="font-weight:bold;"></h:outputText>
+			<h:outputText value="#{'$'.concat(paymentController.total)}"></h:outputText>
+
+
+
+
+		</p:panelGrid>
+	</ui:define>
+
+</ui:composition>
+<!-- </h:body> -->
+</html>

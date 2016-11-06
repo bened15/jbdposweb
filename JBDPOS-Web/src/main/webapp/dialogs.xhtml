@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<!-- <h:body> -->
+
+
+<p:dialog closable="true" draggable="true" closeOnEscape="true"
+	modal="true" header="Seleccione el numero de cuentas a crear"
+	showEffect="fade" id="billsDialogId" widgetVar="billsDialog"
+	appendTo="@(body)">
+	<h:form>
+		<h:panelGrid columns="2">
+			<!-- 			<p:inputText placeholder="Numero de Personas" -->
+			<!-- 				value="#{orderController.numPersons}"></p:inputText> -->
+			<p:keyboard placeholder="Numero de Personas"
+				value="#{orderController.numPersons}" layout="custom"
+				layoutTemplate="789-back,456-clear,123,0-close"></p:keyboard>
+			<p:outputLabel></p:outputLabel>
+
+		</h:panelGrid>
+		<p:dataGrid var="billsNum" value="#{orderController.howManyBillsList}"
+			columns="5" layout="grid" rows="10" paginator="true" id="billsNumId"
+			widgetVar="billsNumId">
+
+			<p:panel header="#{billsNum}" style="text-align:center;">
+				<p:commandButton
+					style="width:100px;height:100px;background:#a5b2cc;color:white;"
+					value="#{billsNum}" update=":formP"
+					actionListener="#{orderController.setHowManyBills(billsNum)}"
+					oncomplete="PF('billsDialog').hide()">
+
+				</p:commandButton>
+			</p:panel>
+
+		</p:dataGrid>
+
+
+	</h:form>
+
+</p:dialog>
+
+
+
+<p:dialog closable="true" draggable="true" closeOnEscape="true"
+	modal="true" header="Seleccione nuevo numero de cuentas a crear"
+	showEffect="fade" id="newBillsDialogId" widgetVar="newBillsDialog"
+	appendTo="@(body)">
+	<h:form>
+
+		<p:dataGrid var="billsNum" value="#{orderController.howManyBillsList}"
+			columns="5" layout="grid" rows="10" paginator="true" id="billsNumId"
+			widgetVar="billsNumId">
+
+			<p:panel header="#{billsNum}" style="text-align:center;">
+				<p:commandButton
+					style="width:100px;height:100px;background:#a5b2cc;color:white;"
+					value="#{billsNum}" update=":formP :formH" ajax="false"
+					action="#{splitOrderController.setHowManyBillsAccountDivision(billsNum)}"
+					oncomplete="PF('newBillsDialog').hide();PF('optionsDialog').hide()">
+
+				</p:commandButton>
+			</p:panel>
+
+		</p:dataGrid>
+
+		<h:panelGrid columns="2">
+			<!-- 			<p:inputText placeholder="Otro numero de cuentas" -->
+			<!-- 				value="#{splitOrderController.numBillsDigit}"></p:inputText> -->
+			<p:keyboard placeholder="Otro numero de cuentas" layout="custom"
+				value="#{splitOrderController.numBillsDigit}"
+				layoutTemplate="789-back,456-clear,123,0-close"></p:keyboard>
+			<p:commandButton value="Otro" update=":formP"
+				action="#{splitOrderController.setHowManyBillsAccountDivision('')}"></p:commandButton>
+
+			<p:commandButton value="Administrar Cuentas" update=":formP"
+				action="#{splitOrderController.setHowManyBillsAccountDivision('0')}"></p:commandButton>
+
+		</h:panelGrid>
+
+
+	</h:form>
+
+</p:dialog>
+
+
+
+<p:dialog closable="true" draggable="true" closeOnEscape="true"
+	modal="true" header="Ingrese el comentario" showEffect="clip"
+	id="comentDialogId" widgetVar="comentDialog" appendTo="@(body)">
+	<h:form>
+		<h:panelGrid columns="2">
+			<!-- 			<p:inputTextarea placeholder="Ingrese el comentario" -->
+			<!-- 				value="#{orderController.orderComment}"></p:inputTextarea> -->
+			<p:keyboard placeholder="Ingrese el comentario" layout="custom"
+				value="#{orderController.orderComment}"
+				layoutTemplate="1234567890-back,qwertyuiop-clear,asdfghjkl-shift,zxcvbnm./,spacebar-close"></p:keyboard>
+			<p:outputLabel></p:outputLabel>
+			<p:commandButton value="Ingresar"
+				oncomplete="PF('comentDialog').hide()"
+				actionListener="#{orderController.addCommentOrder}"></p:commandButton>
+			<p:commandButton value="Cancelar"
+				oncomplete="PF('comentDialog').hide()"></p:commandButton>
+		</h:panelGrid>
+	</h:form>
+</p:dialog>
+
+
+
+
+<p:dialog closable="true" draggable="true" closeOnEscape="true"
+	modal="true" header="Seleccione la cuenta" showEffect="fade"
+	id="selectBillsDialogId" widgetVar="selectBillsDialog"
+	appendTo="@(body)">
+	<h:form id="formBillsSelected">
+
+		<p:dataGrid var="billsSelec" value="#{orderController.bills}"
+			columns="5" layout="grid" rows="10" paginator="true" id="billsNumId"
+			widgetVar="billsSelecId"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+			<p:panel header="#{billsSelec.billId}" style="text-align:center;">
+				<p:commandButton
+					style="width:100px;height:100px;background:#a5b2cc;color:white;"
+					value="#{billsSelec.billName}" update=":formP :formR"
+					actionListener="#{orderController.setBillSelected(billsSelec)}"
+					oncomplete="PF('selectBillsDialog').hide()">
+
+				</p:commandButton>
+			</p:panel>
+
+		</p:dataGrid>
+	</h:form>
+
+</p:dialog>
+
+
+
+<p:dialog closable="true" draggable="true" closeOnEscape="true"
+	modal="true" header="Seleccione la operacion a efectuar"
+	showEffect="fade" id="optionsDialogId" widgetVar="optionsDialog"
+	style="font-size:1em;" appendTo="@(body)">
+	<h:form id="formOptions">
+		<h:panelGrid rendered="#{orderController.mostrarOptions}" columns="4">
+			<p:panel header="Editar Orden"
+				style="float:left;text-align:center;margin-left:5%;background:#ead479;">
+				<p:commandButton value="Go!"
+					actionListener="#{orderController.setEditarOrden}"
+					style="width:150px;height:140px;height:150px;width:170px;background:#f0cd39;"
+					update=":formP" oncomplete="PF('optionsDialog').hide()"></p:commandButton>
+			</p:panel>
+			<p:panel header="Pagar"
+				style="float:left;text-align:center;margin-left:5%;background:#b8f28b;">
+				<p:commandButton value="Go!" update=":formP :formH"
+					action="paymentAccounts.xhtml?faces-redirect=true"
+					style="width:180px;height:150px;height:150px;width:170px;background:#7fe132;"></p:commandButton>
+			</p:panel>
+			<p:panel header="Cambiar Mesa"
+				style="float:left;text-align:center;margin-left:5%;background:#d5a4f0;">
+				<p:commandButton value="Go!" update=":formP :formOptions"
+					actionListener="#{orderController.showTablesForEditAccount}"
+					style="width:180px;height:150px;height:150px;width:170px; background:#b545f4;"></p:commandButton>
+			</p:panel>
+
+			<p:panel header="Cancelar Cuenta!"
+				style="float:left;text-align:center;margin-left:5%;background:#eeb4a5;">
+				<p:commandButton value="Go!" update=":formP"
+					action="#{orderController.cancelAccount}"
+					oncomplete="PF('optionsDialog').hide()"
+					style="width:180px;height:150px;height:150px;width:170px; background:#f46f4d;"></p:commandButton>
+			</p:panel>
+
+			<p:panel header="Gestionar Cuentas"
+				style="float:left;text-align:center;margin-left:5%;background:#b0e5ea;">
+				<p:commandButton value="Go!" update=":formP :formOptions"
+					oncomplete="PF('newBillsDialog').show()"
+					style="width:180px;height:150px;height:150px;width:170px; background:#27cbd8;"></p:commandButton>
+			</p:panel>
+
+
+		</h:panelGrid>
+
+		<p:dataGrid var="table" value="#{orderController.tables}" columns="3"
+			rendered="#{!orderController.mostrarOptions}" layout="grid" rows="12"
+			paginator="true" id="tablesId" widgetVar="tablesId"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+			<f:facet name="header">
+            	Seleccione una Mesa
+        	</f:facet>
+
+			<p:panel header="#{table.tableId}" style="text-align:center;">
+				<p:commandButton
+					disabled="#{table.status eq 'OCUPADO'? 'true':'false'}"
+					style="width:100px;height:100px;background:#997139;color:white;"
+					action="#{orderController.changeAccountToTable(table)}"
+					value="#{table.tableName}" oncomplete="PF('optionsDialog').hide()"
+					update=":formR :formP">
+
+				</p:commandButton>
+			</p:panel>
+
+		</p:dataGrid>
+
+
+	</h:form>
+</p:dialog>
+
+
+
+<p:dialog closable="true" draggable="true" closeOnEscape="true"
+	modal="true" header="Ingrese el nuevo nombre de la cuenta"
+	showEffect="clip" id="accountNameDialogId"
+	widgetVar="accountNameDialog" appendTo="@(body)">
+	<h:form>
+		<h:panelGrid columns="2">
+			<!-- 			<p:inputText placeholder="Nombre de cuenta" -->
+			<!-- 				value="#{splitOrderController.newNameAccount}"></p:inputText> -->
+			<p:keyboard placeholder="Ingrese el comentario"
+				value="#{splitOrderController.newNameAccount}"
+				layoutTemplate="1234567890-back,qwertyuiop-clear,asdfghjkl-shift,zxcvbnm./,spacebar-close"></p:keyboard>
+			<p:outputLabel></p:outputLabel>
+			<p:commandButton value="Cambiar"
+				oncomplete="PF('accountNameDialog').hide()" update=":formP"
+				actionListener="#{splitOrderController.changeNameAccount}"></p:commandButton>
+			<p:commandButton value="Cancelar"
+				oncomplete="PF('accountNameDialog').hide()"></p:commandButton>
+		</h:panelGrid>
+	</h:form>
+</p:dialog>
+
+
+
+
+
+
+
+
+<p:dialog closable="true" draggable="true" closeOnEscape="true"
+	modal="true" header="Tipo de Pago a efectuar" showEffect="fade"
+	id="ctgPaymentsDialogId" widgetVar="ctgPaymentsDialog"
+	appendTo="@(body)">
+	<h:form>
+
+		<p:dataGrid var="pay" value="#{paymentController.paymentTypes}"
+			columns="5" layout="grid" rows="10" paginator="true" id="paymentId"
+			widgetVar="paymentId"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+			<p:panel style="text-align:center;">
+				<p:commandButton
+					style="width:100px;height:100px;background:#a5b2cc;color:white;"
+					value="#{pay.name}" update=":formP :paymentBarId" ajax="true"
+					action="#{paymentController.setPaymentMethodSelectedAction(pay)}"
+					oncomplete="PF('ctgPaymentsDialog').hide()">
+
+				</p:commandButton>
+			</p:panel>
+
+		</p:dataGrid>
+
+
+	</h:form>
+
+</p:dialog>
+
+
+
+
+
+<p:dialog closable="true" draggable="true" closeOnEscape="true"
+	modal="true" header="Elemento a buscar" showEffect="clip"
+	id="elementNameDialogId" widgetVar="elementNameDialog"
+	appendTo="@(body)">
+	<h:form>
+		<h:panelGrid columns="2">
+			<p:inputText placeholder="Nombre elemento"
+				value="#{orderController.elementName}"></p:inputText>
+			<p:outputLabel></p:outputLabel>
+			<p:commandButton value="Buscar"
+				oncomplete="PF('elementNameDialog').hide();PF('newOrderDialog').show()"
+				update=":formItems"
+				actionListener="#{orderController.searchByElementName}"></p:commandButton>
+			<p:commandButton value="Cancelar"
+				oncomplete="PF('elementNameDialog').hide()"></p:commandButton>
+		</h:panelGrid>
+	</h:form>
+</p:dialog>
+
+
+
+<p:dialog closable="true" draggable="true" closeOnEscape="true"
+	modal="true" header="Elemento a buscar" showEffect="clip"
+	id="elementNameEditDialogId" widgetVar="elementNameEditDialog"
+	appendTo="@(body)">
+	<h:form>
+		<h:panelGrid columns="2">
+			<p:inputText placeholder="Nombre elemento"
+				value="#{orderController.elementName}"></p:inputText>
+			<p:outputLabel></p:outputLabel>
+			<p:commandButton value="Buscar"
+				oncomplete="PF('elementNameDialog').hide();PF('editOrderDialog').show()"
+				update=":formItemsEdit"
+				actionListener="#{orderController.searchByElementName}"></p:commandButton>
+			<p:commandButton value="Cancelar"
+				oncomplete="PF('elementNameDialog').hide()"></p:commandButton>
+		</h:panelGrid>
+	</h:form>
+</p:dialog>
+
+<p:dialog closable="true" draggable="true" closeOnEscape="true"
+	modal="true" header="Apertura de Turno" showEffect="clip"
+	id="shiftDialogId" widgetVar="shiftDialog" appendTo="@(body)">
+	<h:form>
+		<h:panelGrid columns="2">
+			<p:inputText placeholder="Cantidad de dinero inicial"
+				value="#{homeController.iniMoney}"></p:inputText>
+			<p:outputLabel></p:outputLabel>
+			<p:commandButton value="Aperturar Turno"
+				oncomplete="PF('shiftDialog').hide()" update=":formP"
+				actionListener="#{homeController.iniciarShift}"></p:commandButton>
+			<p:commandButton value="Cancelar" update=":formP"
+				oncomplete="PF('shiftDialog').hide()"></p:commandButton>
+		</h:panelGrid>
+	</h:form>
+</p:dialog>
+
+<!-- *******************************dialog para la toma de ordenes (nueva) ************************************************-->
+<p:dialog closable="true" draggable="true" closeOnEscape="true"
+	style="font-size:0.8em;" modal="true" showEffect="Clip" width="95%"
+	height="95%" id="newOrderDialogId" widgetVar="newOrderDialog"
+	appendTo="@(body)">
+	<f:facet name="header">
+		INGRESAR ORDEN
+		<p:commandButton value="REGRESAR" styleClass="headerButtons"
+			oncomplete="PF('newOrderDialog').hide()"></p:commandButton>
+	</f:facet>
+
+	<h:form id="formItems">
+		<p:dataGrid var="menuSubTypeN" value="#{orderController.menuSubType}"
+			columns="8" rendered="#{orderController.mostrarMenuSubType}"
+			layout="grid" rows="24" paginator="true" id="menuSubTypeId"
+			widgetVar="menuSubTypeId"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} ">
+
+			<f:facet name="header">
+            	Seleccione un Submenu
+        	</f:facet>
+
+
+			<p:panel style="text-align:center;background:#b5eff0;">
+				<p:commandButton
+					style="width:100px;height:60px;background:#53cdd0;color:white;text-align:center;"
+					actionListener="#{orderController.searchMenuSubTypeSelected(menuSubTypeN)}"
+					value="#{menuSubTypeN.menuSubTypeName}" update=":formItems">
+
+				</p:commandButton>
+			</p:panel>
+
+		</p:dataGrid>
+
+		<p:dataGrid var="menuItemN" value="#{orderController.menuItem}"
+			columns="8" rendered="#{orderController.mostrarMenuItems}"
+			layout="grid" rows="24" paginator="true" id="menuItemId"
+			widgetVar="menuItemId"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+			<f:facet name="header">
+            	Seleccione un Elemento
+        	</f:facet>
+
+			<p:panel style="text-align:center;background:#f2d4a6;">
+				<p:commandButton
+					rendered="#{orderController.bills.size()==1? 'true':'false'}"
+					style="width:110px;height:70px;background:#f2b454;color:white;"
+					value="#{menuItemN.menuItemName}"
+					actionListener="#{orderController.setBillSelectedForOne(menuItemN)}"
+					update=":formR :formBillsSelected">
+				</p:commandButton>
+
+				<p:commandButton
+					rendered="#{orderController.bills.size()==1? 'false':'true'}"
+					style="width:110px;height:70px;background:#f2b454;color:white;"
+					value="#{menuItemN.menuItemName}"
+					oncomplete="PF('selectBillsDialog').show()"
+					update=":formR :formBillsSelected">
+					<f:setPropertyActionListener value="#{menuItemN}"
+						target="#{orderController.itemSelected}" />
+				</p:commandButton>
+			</p:panel>
+
+		</p:dataGrid>
+	</h:form>
+</p:dialog>
+
+<!-- *******************************dialog para la toma de ordenes (edicion) ************************************************-->
+<p:dialog closable="true" draggable="true" closeOnEscape="true"
+	style="font-size:0.8em;" modal="true" showEffect="Clip" width="95%"
+	height="95%" id="editOrderDialogId" widgetVar="editOrderDialog"
+	appendTo="@(body)">
+	<f:facet name="header">
+		EDITAR ORDEN
+		<p:commandButton value="REGRESAR" styleClass="headerButtons"
+			oncomplete="PF('editOrderDialog').hide()"></p:commandButton>
+	</f:facet>
+	<h:form id="formItemsEdit">
+
+		<p:dataGrid var="menuSubTypeE" value="#{orderController.menuSubType}"
+			columns="8" rendered="#{orderController.mostrarMenuSubType}"
+			layout="grid" rows="24" paginator="true" id="menuSubTypeId"
+			widgetVar="menuSubTypeId"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} ">
+
+			<f:facet name="header">
+            	Seleccione un Submenu
+        	</f:facet>
+
+
+			<p:panel style="text-align:center;background:#b5eff0;">
+				<p:commandButton
+					style="width:100px;height:60px;background:#53cdd0;color:white;text-align:center;"
+					actionListener="#{orderController.searchMenuSubTypeSelected(menuSubTypeE)}"
+					value="#{menuSubTypeE.menuSubTypeName}" update=":formItemsEdit">
+
+				</p:commandButton>
+			</p:panel>
+
+		</p:dataGrid>
+
+
+
+
+
+		<p:dataGrid var="menuItemE" value="#{orderController.menuItem}"
+			columns="8" rendered="#{orderController.mostrarMenuItems}"
+			layout="grid" rows="24" paginator="true" id="menuItemId"
+			widgetVar="menuItemId"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+			<f:facet name="header">
+            	Seleccione un Elemento
+        	</f:facet>
+
+			<p:panel style="text-align:center;background:#f2d4a6;">
+				<p:commandButton
+					rendered="#{orderController.bills.size()==1? 'true':'false'}"
+					style="width:110px;height:60px;background:#f2b454;color:white;"
+					value="#{menuItemE.menuItemName}"
+					actionListener="#{orderController.setBillSelectedForOne(menuItemE)}"
+					update=":formR :formBillsSelected">
+				</p:commandButton>
+
+				<p:commandButton
+					rendered="#{orderController.bills.size()==1? 'false':'true'}"
+					style="width:110px;height:60px;background:#f2b454;color:white;"
+					value="#{menuItemE.menuItemName}"
+					oncomplete="PF('selectBillsDialog').show()"
+					update=":formR :formBillsSelected">
+					<f:setPropertyActionListener value="#{menuItemE}"
+						target="#{orderController.itemSelected}" />
+				</p:commandButton>
+			</p:panel>
+
+		</p:dataGrid>
+	</h:form>
+</p:dialog>
+<!-- *******************pre-cuenta**************** -->
+<p:dialog closable="true" draggable="true" closeOnEscape="true"
+	style="font-size:0.8em;" modal="true" showEffect="Clip" width="95%"
+	height="95%" id="preCuentaDialogId" widgetVar="preCuentaDialog"
+	appendTo="@(body)">
+	<f:facet name="header">
+		PRE-CUENTA
+		<p:commandButton value="REGRESAR" styleClass="headerButtons"
+			oncomplete="PF('preCuentaDialog').hide()"></p:commandButton>
+	</f:facet>
+	<h:form id="formPreCuenta">
+
+		<p:dataTable value="#{paymentController.ordenForPreCuenta}" var="opre"
+			type="ordered">
+
+			<p:column headerText="Nombre Item">
+				<h:outputText value="#{opre.menuItemName}"></h:outputText>
+			</p:column>
+			<p:column width="70" headerText="Precio($)">
+				<b> <h:outputText
+						value="#{''.concat('$').concat(opre.menuItemPrice)}"></h:outputText>
+				</b>
+			</p:column>
+			<p:column width="10">
+				<h:outputText value="X"></h:outputText>
+			</p:column>
+			<p:column headerText="Cantidad">
+				<b><h:outputText value="#{opre.cantidad}"></h:outputText></b>
+			</p:column>
+
+
+
+		</p:dataTable>
+		<p:panelGrid columns="2">
+			<h:outputText value="Subtotal:" style="font-weight:bold;"></h:outputText>
+			<h:outputText
+				value="#{'$'.concat(paymentController.restBillSelected.billSubtotal)}"
+				style="font-size:1.4em;"></h:outputText>
+			<h:outputText value="Propina:" style="font-weight:bold;"></h:outputText>
+			<h:outputText
+				value="#{'$'.concat(paymentController.restBillSelected.billTip)}"
+				style="font-size:1.4em;"></h:outputText>
+			<h:outputText value="Total:" style="font-weight:bold;"></h:outputText>
+			<h:outputText
+				value="#{'$'.concat(paymentController.restBillSelected.billTotal)}"
+				style="font-size:1.4em;"></h:outputText>
+
+
+		</p:panelGrid>
+		<p:commandButton value="Imprimir Pre-cuenta"
+			style="margin-top:10%;font-size:1.8em;" styleClass="buttonC"
+			action="#{paymentController.printPreCuenta()}"></p:commandButton>
+
+	</h:form>
+</p:dialog>
+<p:notificationBar position="bottom" effect="slide" styleClass="bottom"
+	style="height:500px;background:#ddf6ee" widgetVar="paymentBar"
+	id="paymentBarId">
+
+	<h:form id="paymentForm">
+		<p:messages id="ErrorMsg" styleClass="Hcontent" showDetail="true"
+			autoUpdate="true" closable="true" />
+		<p:commandButton value="REGRESAR" oncomplete="PF('paymentBar').hide()"
+			style="float:left;" styleClass="headerButtons"></p:commandButton>
+		<br></br>
+		<br></br>
+		<h:panelGrid columns="3">
+			<h:column>
+
+				<p:dataGrid var="val" value="#{paymentController.calculatorValues}"
+					columns="3" style="width:400px;height:350px;">
+
+					<p:commandButton value="#{val}" style="width:95px;height:70px;"
+						update=":paymentForm"
+						actionListener="#{paymentController.affectPayment(val)}"></p:commandButton>
+				</p:dataGrid>
+			</h:column>
+
+
+			<h:column>
+				<p:inputText value="#{paymentController.infoPago}" id="infoPagoId"
+					placeholder="Informacion Extra"></p:inputText>
+				<p:commandButton value="Tarjeta"
+					rendered="#{paymentController.paymentMethodSelected.name=='Tarjeta de Credito'}"
+					oncomplete="PF('cardTypeDialog').show()"></p:commandButton>
+				<p:panelGrid columns="2">
+					<f:facet name="header">Total a pagar</f:facet>
+					<h:outputText value="Subtotal:" style="font-weight:bold;"></h:outputText>
+					<h:outputText
+						value="#{'$'.concat(paymentController.restBillSelected.billSubtotal)}"
+						style="font-size:1.2em;"></h:outputText>
+					<h:outputText value="Propina:" style="font-weight:bold;"></h:outputText>
+					<h:outputText
+						value="#{'$'.concat(paymentController.restBillSelected.billTip)}"
+						style="font-size:1.2em;"></h:outputText>
+					<h:outputText value="Total:" style="font-weight:bold;"></h:outputText>
+					<h:outputText id="totalBill"
+						value="#{'$'.concat(paymentController.totalRestante)}"
+						style="font-size:1.4em;font-weight:bold;"></h:outputText>
+
+				</p:panelGrid>
+				<p:panel header="Abono" id="totalAbonoId"
+					style="background:#9fb0b7;width:200px;height:115px;font-size:1.4em;text-align:center;font-weight:bold;">
+					<h:outputText value="#{paymentController.totalAbono}"
+						style="color:#dae16f;"></h:outputText>
+				</p:panel>
+			</h:column>
+			<p:commandButton value="Pagar"
+				style="margin-top:10%;font-size:1.8em;" styleClass="buttonC"
+				action="#{paymentController.generarPago()}"></p:commandButton>
+
+		</h:panelGrid>
+
+
+	</h:form>
+</p:notificationBar>
+<p:dialog closable="true" draggable="true" closeOnEscape="true"
+	style="font-size:0.8em;" modal="true" showEffect="Fade"
+	id="cardTypeDialogId" widgetVar="cardTypeDialog" appendTo="@(body)">
+	<h:form id="cardType">
+		<p:commandLink oncomplete="PF('cardTypeDialog').hide()"
+			update=":paymentForm:infoPagoId"
+			actionListener="#{paymentController.setInfoPago('Master Card: ')}">
+			<h:graphicImage name="img/mastercard.png"
+				style="width:80px; height:80px; padding:10px;"></h:graphicImage>
+
+		</p:commandLink>
+
+		<p:commandLink oncomplete="PF('cardTypeDialog').hide()"
+			update=":paymentForm:infoPagoId"
+			actionListener="#{paymentController.setInfoPago('Visa: ')}">
+			<h:graphicImage name="img/visa.png"
+				style="width:80px; height:80px; padding:10px;"></h:graphicImage>
+
+		</p:commandLink>
+		<p:commandLink oncomplete="PF('cardTypeDialog').hide()"
+			update=":paymentForm:infoPagoId"
+			actionListener="#{paymentController.setInfoPago('American Express: ')}">
+			<h:graphicImage name="img/aex.png"
+				style="width:80px; height:80px; padding:10px;"></h:graphicImage>
+
+		</p:commandLink>
+		<p:commandButton oncomplete="PF('cardTypeDialog').hide()"
+			update=":paymentForm:infoPagoId" value="OTRO"
+			style="width:80px;height:80px;padding:10px;"
+			actionListener="#{paymentController.setInfoPago('Otro: ')}">
+
+
+		</p:commandButton>
+
+	</h:form>
+
+</p:dialog>
+<!-- </h:body> -->
+</html>

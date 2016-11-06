@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<!-- <h:body> -->
+
+<ui:composition template="./layouts.xhtml">
+
+	<ui:define name="content">
+		<p:growl id="messages" showDetail="true" />
+		<h:form id="reorderForm">
+			<p:dataGrid var="bdetail" value="#{splitOrderController.billsDetail}"
+				columns="5" layout="grid" rows="12" paginator="true" id="orderId"
+				widgetVar="orderId"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+				<p:panel id="orders"
+					header="#{''.concat(bdetail.restOrder.orderId).concat('-').concat(bdetail.restOrder.restMenuItem.menuItemName)}">
+
+				</p:panel>
+				<p:draggable for="orders" revert="true" helper="clone"
+					stack=".ui-panel" />
+			</p:dataGrid>
+
+
+
+
+
+
+			<p:dataGrid var="billsNum" value="#{splitOrderController.bills}"
+				columns="4" layout="grid" rows="6" paginator="true" id="billsNumId"
+				widgetVar="billsNumW"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="6,12,16">
+
+				<p:panel id="cuentas"
+					styleClass="#{billsNum.billStatus==1? 'toDelete':''}">
+					<f:facet name="header">
+						<p:commandButton icon="ui-icon-pencil"
+							actionListener="#{splitOrderController.setRestBillSelected(billsNum)}"
+							oncomplete="PF('accountNameDialog').show()"></p:commandButton>#{billsNum.billName}
+						<p:commandButton icon="ui-icon-trash"
+							actionListener="#{splitOrderController.delRestBillSelected(billsNum)}"
+							update=":formP"></p:commandButton>
+					</f:facet>
+					<p:dataTable value="#{splitOrderController.billsToShow(billsNum)}"
+						var="d" type="ordered">
+						<p:column width="20">
+							<p:commandButton icon="ui-icon ui-icon-closethick" title="Delete"
+								actionListener="#{splitOrderController.removeMenuItemChanged(d)}"
+								ajax="true" update=":formR :formP">
+							</p:commandButton>
+						</p:column>
+						<p:column>
+							<h:outputText
+								value="#{''.concat(d.restOrder.orderId).concat('-').concat(d.restOrder.restMenuItem.menuItemName)}"></h:outputText>
+						</p:column>
+
+					</p:dataTable>
+
+
+				</p:panel>
+				<p:droppable for="cuentas" tolerance="touch"
+					activeStyleClass="ui-state-highlight"
+					datasource=":formP:reorderForm:orderId" onDrop="handleDrop">
+					<p:ajax listener="#{splitOrderController.onOrderDrop}"
+						update=":formP :formR" />
+				</p:droppable>
+
+			</p:dataGrid>
+			<p:commandButton value="Confirmar Cambio" styleClass="buttonC"
+				style="margin-top:2%;"
+				action="#{splitOrderController.confirmChangeAccounts}"></p:commandButton>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+<!-- </h:body> -->
+</html>

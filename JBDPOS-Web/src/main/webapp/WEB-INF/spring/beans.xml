@@ -1,0 +1,135 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/context
+	 http://www.springframework.org/schema/context/spring-context-3.2.xsd
+     http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/aop
+     http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+
+	<context:annotation-config />
+	<!-- <context:component-scan base-package="com.jbd.controller"> -->
+
+	<!-- </context:component-scan> -->
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="JBDPOS" />
+
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+		<property name="jpaDialect" ref="jpaDialect" />
+	</bean>
+	<bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+
+	<bean id="manageRestOrder" class="com.jbd.hibernate.dao.RestOrderManagementDAO"
+		autowire="byType">
+	</bean>
+	<bean id="manageRestArea" class="com.jbd.hibernate.dao.RestAreaManagementDAO"
+		autowire="byType">
+	</bean>
+	<bean id="manageRestTable" class="com.jbd.hibernate.dao.RestTableManagementDAO"
+		autowire="byType">
+	</bean>
+	<bean id="manageRestTableAccount" class="com.jbd.hibernate.dao.RestTableAccountManagementDAO"
+		autowire="byType">
+	</bean>
+	<bean id="manageMenuItem" class="com.jbd.hibernate.dao.RestMenuItemManagementDAO"
+		autowire="byType">
+	</bean>
+	<bean id="manageMenuItemProduct" class="com.jbd.hibernate.dao.RestMenuItemProductManagementDAO"
+		autowire="byType">
+	</bean>
+	<bean id="manageCtgTip" class="com.jbd.hibernate.dao.CtgTipManagementDAO"
+		autowire="byType">
+	</bean>
+	<bean id="manageRestShift" class="com.jbd.hibernate.dao.RestShiftManagementDAO"
+		autowire="byType">
+	</bean>
+	<bean id="restOrder" class="com.jbd.model.RestOrder" autowire="byType"></bean>
+	<bean id="ctgTip" class="com.jbd.model.CtgTip" autowire="byType"></bean>
+	
+	<bean id="menuType" class="com.jbd.model.CtgMenuType" autowire="byType"></bean>
+
+
+	<bean id="restArea" class="com.jbd.model.RestArea" autowire="byType"></bean>
+	<bean id="userRol" class="com.jbd.model.SysUserRol" autowire="byType"></bean>
+	<bean id="restMenuItem" class="com.jbd.model.RestMenuItem" autowire="byType"></bean>
+
+	<bean id="restTable" class="com.jbd.model.RestTable" autowire="byType"></bean>
+	<bean id="restTableAccount" class="com.jbd.model.RestTableAccount"
+		autowire="byType" ></bean>
+	<bean id="restBillDetail" class="com.jbd.model.RestBillDetail"
+		autowire="byType"></bean>
+	<bean id="restBill" class="com.jbd.model.RestBill" autowire="byType"></bean>
+	<bean id="manageRestBill" class="com.jbd.hibernate.dao.RestBillManagementDAO"
+		autowire="byType"></bean>
+	<bean id="manageRestBillPayment" class="com.jbd.hibernate.dao.RestBillPaymentManagementDAO"
+		autowire="byType"></bean>
+	<bean id="manageRestBillDetail" class="com.jbd.hibernate.dao.RestBillDetailManagementDAO"
+		autowire="byType"></bean>
+
+
+
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<bean id="ctgPaymentMethodId" class="com.jbd.model.CtgPaymentMethod"
+		autowire="byType"></bean>
+
+	<bean id="sysUser" class="com.jbd.hibernate.dao.SysUserManagementDAO"
+		autowire="byType"></bean>
+	<bean id="sysRole" class="com.jbd.hibernate.dao.SysRoleManagementDAO"
+		autowire="byType"></bean>
+	<bean id="sysUserRol" class="com.jbd.hibernate.dao.SysUserRolManagementDAO"
+		autowire="byType"></bean>
+	<bean id="ctgSupplier" class="com.jbd.hibernate.dao.CtgSupplierManagementDAO"
+		autowire="byType"></bean>
+	<bean id="restProduct" class="com.jbd.hibernate.dao.RestProductManagementDAO"
+		autowire="byType"></bean>
+	<bean id="ctgDiscount" class="com.jbd.hibernate.dao.CtgDiscountManagementDAO"
+		autowire="byType"></bean>
+	<bean id="ctgMeasureUnit" class="com.jbd.hibernate.dao.CtgMeasureUnitManagementDAO"
+		autowire="byType"></bean>
+	<bean id="ctgPaymentMethod" class="com.jbd.hibernate.dao.CtgPaymentMethodManagementDAO"
+		autowire="byType"></bean>
+	<bean id="ctgMenuType" class="com.jbd.hibernate.dao.CtgMenuTypeManagementDAO"
+		autowire="byType"></bean>
+	<bean id="ctgProductType" class="com.jbd.hibernate.dao.CtgProductTypeManagementDAO"
+		autowire="byType"></bean>
+	<bean id="restShift" class="com.jbd.model.RestShift" autowire="byType"></bean>
+
+	<bean id="invProductItem" class="com.jbd.hibernate.dao.InvProductItemManagementDAO"
+		autowire="byType"></bean>
+	<bean id="ctgTransactionType" class="com.jbd.hibernate.dao.CtgTransactionTypeManagementDAO"
+		autowire="byType"></bean>
+	<bean id="restKitchen" class="com.jbd.hibernate.dao.RestKitchenManagementDAO"
+		autowire="byType"></bean>
+	<bean id="admCustomer" class="com.jbd.hibernate.dao.AdmCustomerManagementDAO"
+		autowire="byType"></bean>
+	<bean id="admReservation" class="com.jbd.hibernate.dao.AdmReservationManagementDAO"
+		autowire="byType"></bean>
+	<bean id="restInformation" class="com.jbd.hibernate.dao.RestInformationManagementDAO"
+		autowire="byType"></bean>
+	<bean id="restMenuItemComment" class="com.jbd.hibernate.dao.RestMenuItemCommentManagementDAO"
+		autowire="byType"></bean>
+	<bean id="invProductWaste" class="com.jbd.hibernate.dao.InvInventoryWasteManagementDAO"
+		autowire="byType"></bean>
+	<bean id="ctgDiscountMenu" class="com.jbd.hibernate.dao.CtgDiscountMenuManagementDAO"
+		autowire="byType"></bean>
+	<bean id="ctgMenuSubType" class="com.jbd.hibernate.dao.CtgMenuSubTypeManagementDAO"
+		autowire="byType"></bean>
+
+
+
+
+</beans>

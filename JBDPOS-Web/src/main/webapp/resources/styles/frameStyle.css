@@ -1,0 +1,228 @@
+.footer {
+	font-size: 0.7em;
+	/* 	margin-top: 65% */
+}
+
+.keypad-key {
+	font-size: 2em !important;
+	width: 70px !important;
+}
+
+.keypad-row {
+	width: 100% !important;
+}
+
+.keypad-close {
+	font-size: 1.5em !important;
+	width: 100px !important;
+}
+
+.keypad-clear {
+	font-size: 1.5em !important;
+	width: 100px !important;
+}
+
+.keypad-back {
+	font-size: 1.5em !important;
+	width: 100px !important;
+}
+
+.keypad-spacebar {
+	/*    font-size: 1.5em !important; */
+	width: 80% !important;
+}
+
+.keypad-enter {
+	display: none !important;
+}
+
+.keypad-shift {
+	display: none !important;
+}
+
+.titlePanel {
+	font-family: Arial, sans-serif !important;
+	/* 	font-size: 1.5em !important; */
+	color: white !important;
+}
+
+.titlePanelInfo {
+	font-family: Arial, sans-serif !important;
+/* 	font-size: 0.7em !important; */
+	color: white !important;
+}
+
+.content {
+	font-family: Arial, sans-serif !important;
+	font-size: 0.7em !important;
+	/* 	margin-top: 2% !important; */
+}
+
+.ui-chkbox-box {
+	background: #def2fe !important;
+}
+
+.Hcontent {
+	font-family: Arial, sans-serif !important;
+	font-size: 14px !important;
+	margin-top: 1% !important;
+}
+
+.menuStyle {
+	float: right;
+	font-family: Arial, sans-serif !important;
+	font-size: 0.85em !important;
+}
+
+.menuAppsBox {
+	margin-top: 10%;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	width: 285px;
+}
+
+.ui-layout-north {
+	/* 	z-index: 2 !important; */
+	/* 	overflow: visible !important; */
+	/* 	width: 97% !important; */
+	margin: 0 auto !important;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	/* 	overflow: visible !important; */
+	
+}
+
+.centerUnit {
+	/* 	margin-top: 5px !important; */
+	/* 			width: 100% !important; */
+	margin: 0 auto !important;
+	/* 	margin-right:5px !important; */
+	border: 0px !important;
+}
+
+.eastUnit {
+	margin-top: 5px !important;
+	font-size: 0.85em !important;
+
+	/* 	width: 50% !important; */
+}
+
+.westUnit {
+	margin-top: 5px !important;
+}
+
+.northUnit {
+	/* 	font-size: 0.8em; */
+	border: 0px;
+}
+
+.hide {
+	display: none !important;
+}
+
+.buttonLogin {
+	background: #6c0 !important;
+	color: white !important;
+	height: 40px !important;
+	width: 150px !important;
+	font-weight: bold !important;
+	font-size: 1.3em !important;
+}
+
+.buttonC {
+	background: #6c0 !important;
+	color: white !important;
+	height: 70px !important;
+	width: 200px !important;
+	font-weight: bold !important;
+	font-size: 1.8em !important;
+}
+
+.headerButtons {
+	background: #ee871f !important;
+	color: white !important;
+	height: 40px !important;
+	width: 200px !important;
+	font-weight: bold !important;
+	font-size: 1.2em !important;
+	/* 	margin-left: 50% !important; */
+}
+
+.buttonBorder {
+	border-color: #6c0 !important;
+}
+
+.buttonD {
+	background: #d05340 !important;
+	color: white !important;
+}
+
+.buttonTop {
+	/* 	background: #49166d !important; */
+	/* 	color: white !important; */
+	margin-left: 25px !important;
+	float: right;
+	color: white !important;
+	font-size: 0.8em !important;
+	font-weight: bold;
+}
+
+.center {
+	margin: 0 auto !important;
+}
+
+.moreSpacing {
+	border-collapse: separate !important;
+	border-spacing: 210px !important;
+	*border-collapse: expression('separate', cellSpacing = '10px')
+		!important;
+}
+
+.rcorners1 {
+	border-radius: 5px;
+	background: #571a83;
+	height: 50px;
+	width: 140px;
+}
+.rcorners2 {
+	border-radius: 5px;
+	background: #571a83;
+	height: 50px;
+	width: 440px;
+}
+
+
+.titleStyle {
+	background: #49166d !important;
+	width: 60% !important;
+	float: left !important;
+}
+
+.titleStyleInfo {
+	background: #7323ab !important;
+	width: 35% !important;
+	float: left !important;
+}
+
+.ui-panelgrid-header td {
+	/* 	color: white !important; */
+	/* 	background-color: #7f5b98 !important; */
+	/* 	background: #49166d !important; */
+	border-radius: 5px !important;
+}
+
+.old {
+	color: #f06464 !important;
+}
+
+.new {
+	color: #629841 !important;
+}
+
+.toDelete {
+	border-color: red !important;
+	color: #f06464 !important;
+	background-color: #f06464 !important;
+}

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<!-- <h:body> -->
+
+<ui:composition template="./layouts.xhtml">
+
+	<ui:define name="content">
+		<p:growl id="messages" showDetail="true" />
+		<p:panel header="Nueva Orden"
+			style="float:left;text-align:center;margin-left:4%;margin-top:4%;background:#97dd8c;">
+			<p:commandButton value="Go!"
+				disabled="#{homeController.aShift eq null}"
+				style="width:170px;height:150px;height:150px;width:170px;background:#44e520;"
+				action="#{homeController.takeNewOrder}"></p:commandButton>
+		</p:panel>
+		<p:panel header="Editar Ordenes"
+			style="float:left;text-align:center;margin-left:4%;margin-top:4%;background:#f9c27e;">
+			<p:commandButton value="Go!" action="#{homeController.editOrder}"
+				disabled="#{homeController.aShift eq null}"
+				style="width:170px;height:150px;height:150px;width:170px;background:#df8223;"></p:commandButton>
+		</p:panel>
+		<p:panel header="Para Llevar"
+			style="float:left;text-align:center;margin-left:4%;margin-top:4%;background:#d3c3ee;">
+			<p:commandButton value="Go!" action="#{homeController.orderToGo}"
+				disabled="#{homeController.aShift eq null}"
+				style="width:170px;height:150px;height:150px;width:170px; background:#8b4eec;"></p:commandButton>
+		</p:panel>
+		<p:panel header="Aperturar Turno"
+			style="float:left;text-align:center;margin-left:4%;margin-top:4%;background:#94d9c1;">
+			<p:commandButton value="Go!" oncomplete="PF('shiftDialog').show()"
+				disabled="#{homeController.aShift ne null}"
+				style="width:170px;height:150px;height:150px;width:170px; background:#2ab483;"></p:commandButton>
+		</p:panel>
+		<p:panel header="Cerrar Turno"
+			style="float:left;text-align:center;margin-left:4%;margin-top:4%;background:#eabeb4;">
+			<p:commandButton value="Go!"
+				actionListener="#{homeController.cerrarShift}" update=":formP"
+				disabled="#{homeController.aShift eq null}"
+				style="width:170px;height:150px;height:150px;width:170px; background:#ec613e;"></p:commandButton>
+		</p:panel>
+
+		<p:panel header="Lock"
+			style="float:left;text-align:center;margin-left:4%;margin-top:4%;background:#f6a78c;">
+			<p:commandButton value="Go!" action="#{homeController.lockApp}"
+				style="width:170px;height:150px;height:150px;width:170px; background:#f26f42;"></p:commandButton>
+		</p:panel>
+	</ui:define>
+
+</ui:composition>
+<!-- </h:body> -->
+</html>

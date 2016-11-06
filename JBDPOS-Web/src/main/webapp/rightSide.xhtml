@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<!-- <h:body> -->
+
+
+<p:dataTable id="detalleOrdenId" var="ord"
+	value="#{empty orderController.menuItemSelectedOrder? splitOrderController.menuOrderChanged:orderController.menuItemSelectedOrder}">
+	<f:facet name="header">
+            Detalle de Orden
+    </f:facet>
+	<p:column style="text-align: center;" width="20">
+		<p:commandButton icon="ui-icon-note" title="Comment"
+			oncomplete="PF('comentDialog').show()"
+			disabled="#{empty orderController.menuItemSelectedOrder}">
+			<f:setPropertyActionListener value="#{ord}"
+				target="#{orderController.orderSelected}" />
+		</p:commandButton>
+	</p:column>
+	<!-- 	<p:column headerText="Id" width="10"> -->
+	<!-- 		<h:outputText value="#{ord.restMenuItem.menuItemId}" -->
+	<!-- 			styleClass="#{ord.orderStatus eq 'COCINA'? 'old':'new'}" /> -->
+	<!-- 	</p:column> -->
+	<p:column headerText="Nombre" style="font-size:1.2em;">
+		<h:outputText value="#{ord.restMenuItem.menuItemName}"
+			styleClass="#{ord.orderStatus eq 'COCINA'? 'old':'new'}" />
+	</p:column>
+	<p:column headerText="$$" width="30">
+		<h:outputText value="#{'$'.concat(ord.restMenuItem.menuItemPrice)}"
+			styleClass="#{ord.orderStatus eq 'COCINA'? 'old':'new'}" />
+	</p:column>
+	<p:column headerText="Cuenta" width="35">
+		<h:outputText value="#{ord.bill.billName}"
+			styleClass="#{ord.orderStatus eq 'COCINA'? 'old':'new'}" />
+	</p:column>
+	<p:column style="text-align: center" width="20">
+		<p:commandButton icon="ui-icon-closethick" title="Delete"
+			actionListener="#{orderController.removeMenuItemOrder(ord)}"
+			disabled="#{empty orderController.menuItemSelectedOrder}"
+			update=":formR">
+		</p:commandButton>
+	</p:column>
+
+</p:dataTable>
+
+<p:panelGrid columns="2" style="font-size:1.5em;">
+	<h:outputText value="Subtotal:" style="font-weight:bold;"></h:outputText>
+	<h:outputText value="#{orderController.subTotal}"
+		style="font-family:Arial Black;"></h:outputText>
+	<h:outputText value="Propina:" style="font-weight:bold;"></h:outputText>
+	<h:outputText value="#{orderController.tip}"
+		style="font-family:Arial Black;"></h:outputText>
+	<h:outputText value="Total:" style="font-weight:bold;"></h:outputText>
+	<h:outputText value="#{orderController.total }"
+		style="font-family:Arial Black;"></h:outputText>
+
+
+
+
+</p:panelGrid>
+<p:commandButton value="Confirmar Orden"
+	style="margin-top:10%;font-size:1.8em;" styleClass="buttonC"
+	action="#{orderController.confirmOrder()}"
+	disabled="#{empty orderController.menuItemSelectedOrder}"></p:commandButton>
+
+
+<!-- </h:body> -->
+</html>
